@@ -1,4 +1,8 @@
-﻿function Get-ObjectList
+﻿function Get-freeSpacev2
+{
+}
+
+function Get-ObjectList
 {
     param($key1)
     
