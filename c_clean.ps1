@@ -1,12 +1,4 @@
-﻿
-function get-requiredSpace
-{
-    #upcoming feature
-}
-
-
-
-function Get-ObjectList
+﻿function Get-ObjectList
 {
     param($key1)
     
