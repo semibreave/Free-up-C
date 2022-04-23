@@ -1,5 +1,46 @@
-﻿function Get-freeSpacev2
+﻿function Get-SpaceRequired
 {
+	param($OS,$freeSpace)
+	
+	if($OS -eq 'W2K16'){
+	
+		$holding_space_required = 15 - $freeSpace
+		
+		if($holding_space_required.GetType().Name -eq 'double')
+        {
+            $space_required = [Math]::Truncate($holding_space_required) + 1
+
+            return $space_required
+        }
+
+        else{
+
+            $space_required = $holding_space_required
+
+            return $space_required
+        }
+	
+	}
+	
+	else{
+
+            $holding_space_required = 7 - $freeSpace
+
+            if($holding_space_required.GetType().Name -eq 'double')
+            {
+                $space_required = [Math]::Truncate($holding_space_required) + 1
+
+                return $space_required
+            }
+
+            else{
+
+                $space_required = $holding_space_required
+
+                return $space_required
+            }
+	
+	}
 }
 
 function Get-ObjectList
@@ -93,7 +134,9 @@ function Delete-Folder_Files
 
 function Get-Hash
 {
-    param($code,$computer,$bFree_space,$OS,$aFree_space)
+    param($code,$computer,$bFree_space,$OS,$aFree_space,$space_required)
+
+    #param($code,$computer,$bFree_space,$OS,$aFree_space,$space_required)
 
     if($code -eq 1)
     {
@@ -103,6 +146,7 @@ function Get-Hash
                        "Remedied"  = "NR"
                        "Before(GB)" = $bFree_space
                        "After(GB)"= $aFree_space
+                       "Required(GB)" = ""
                  }
 
           return $hash
@@ -116,6 +160,7 @@ function Get-Hash
                        "Remedied"  = "YES"
                        "Before(GB)" = $bFree_space
                        "After(GB)"= $aFree_space
+                       "Required(GB)" = ""
                  }
 
           return $hash
@@ -129,6 +174,7 @@ function Get-Hash
                        "Remedied"  = "NO"
                        "Before(GB)" = $bFree_space
                        "After(GB)"= $aFree_space
+                       "Required(GB)" = $space_required
                  }
 
           return $hash
@@ -142,6 +188,7 @@ function Get-Hash
                        "Remedied"  = "UTC"
                        "Before(GB)" = $bFree_space
                        "After(GB)"= $aFree_space
+                       "Required(GB)" = ""
                  }
 
           return $hash
@@ -181,7 +228,14 @@ function Get-Hash
                 $compliant = Get-Compliant $OS $aFree_space
 
                 if($compliant -eq "YES")  {$obj += New-Object psobject -Property (Get-Hash 2 $computer $bFree_space $OS $aFree_space)}
-                elseif($compliant -eq "NO")  {$obj += New-Object psobject -Property (Get-Hash 3 $computer $bFree_space $OS $aFree_space)}
+                
+                elseif($compliant -eq "NO"){
+                
+                    $space_required = Get-SpaceRequired $os $aFree_space
+                    
+                    $obj += New-Object psobject -Property (Get-Hash 3 $computer $bFree_space $OS $aFree_space $space_required)
+                    
+                }
             }
 
 
@@ -192,9 +246,9 @@ function Get-Hash
         
     }
 
-    $obj|Select-Object Computer,OS,Remedied,'Before(GB)','After(GB)'| FT
-    $obj|Select-Object Computer,OS,Remedied,'Before(GB)','After(GB)'|Export-Csv c:\users\$user_name\desktop\cResults_$stamp"_"$user_name.csv -NoTypeInformation
-    Write-Host "Exported to CSV file in desktop " 
+    $obj|Select-Object Computer,OS,Remedied,'Before(GB)','After(GB)','Required(GB)'| FT
+    $obj|Select-Object Computer,OS,Remedied,'Before(GB)','After(GB)','Required(GB)'|Export-Csv c:\users\$user_name\desktop\cResults_$stamp"_"$user_name.csv -NoTypeInformation
+    Write-Host "Exported to a CSV file in desktop " 
     
 
 
