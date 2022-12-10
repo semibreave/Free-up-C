@@ -119,7 +119,7 @@ function Get-Compliant
 function Delete-Folder_Files
 {
     param($computer)
-    Get-ChildItem -Path \\$computer\c$\Windows\WinSxS\ManifestCache -ErrorAction SilentlyContinue |ForEach-Object{Remove-Item $_.FullName -Force -Recurse -ErrorAction SilentlyContinue}
+    #Get-ChildItem -Path \\$computer\c$\Windows\WinSxS\ManifestCache -ErrorAction SilentlyContinue |ForEach-Object{Remove-Item $_.FullName -Force -Recurse -ErrorAction SilentlyContinue}
     Get-ChildItem -Path \\$computer\c$\Windows\Logs\CBS -ErrorAction SilentlyContinue |ForEach-Object{Remove-Item $_.FullName -Force -Recurse -ErrorAction SilentlyContinue}
     Get-ChildItem -Path \\$computer\c$\Windows\Logs\DISM -ErrorAction SilentlyContinue |ForEach-Object{Remove-Item $_.FullName -Force -Recurse -ErrorAction SilentlyContinue}
     Get-ChildItem -Path \\$computer\c$\Windows\Web -ErrorAction SilentlyContinue|ForEach-Object{Remove-Item $_.FullName -Recurse -Force -ErrorAction SilentlyContinue}
