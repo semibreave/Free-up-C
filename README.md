@@ -12,7 +12,7 @@ This project is written in PowerShell to assist the System Admins to clean up bo
 3. If the above doesn't complied, script will proceed to clean up the predefined path which was pre determined not affecting the OS and also applications.
 4. Upon cleaned up, script will again check for compliancy.
 5. If above doesnt yet to yield compliancy, script will report how much more space required for compliancy. Proceed to logging.
-6. Logging is saved as csv format.
+6. Logging is saved as csv format(sample attached).
 	
 ## Technologies
 Project is created with:
