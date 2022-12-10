@@ -1,4 +1,4 @@
-﻿function Get-SpaceRequired
+function Get-SpaceRequired
 {
 	param($OS,$freeSpace)
 	
@@ -95,6 +95,7 @@ function Get-OS
         elseif($Computer_OS.caption -match "Windows" -and $Computer_OS.caption -match "2012"){return "W2K12"}
         elseif($Computer_OS.caption -match "Windows" -and $Computer_OS.caption -match "2016"){return "W2K16"}
         elseif($Computer_OS.caption -match "Windows" -and $Computer_OS.caption -match "2019"){return "W2K19"}
+        elseif($Computer_OS.caption -match "Windows" -and $Computer_OS.caption -match "2022"){return "W2K22"}
         else{return $Computer_OS.caption}
     }
     catch{
@@ -110,7 +111,7 @@ function Get-Compliant
     param($OS,$freeSpace)
 
     if(($OS -eq "W2K16") -and ($freeSpace -lt 15)){return "NO"}
-	elseif(($OS -eq "W2K8") -or ($OS -eq "W2K12") -or ($OS -eq "W2K19") -and ($freeSpace -lt 7)){return "NO"}
+	elseif(($OS -eq "W2K8") -or ($OS -eq "W2K12") -or ($OS -eq "W2K19") -or ($OS -eq "W2K22")  -and ($freeSpace -lt 7)){return "NO"}
     elseif(($OS -eq "UTC") -or ($freeSpace -eq "UTC")){return "UTC"}
     else{return "YES"}
 }
