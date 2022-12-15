@@ -13,6 +13,11 @@ This project is written in PowerShell to assist the System Admins to clean up bo
 4. Upon cleaned up, script will again check for compliancy.
 5. If above doesnt yet to yield compliancy, script will report how much more space required for compliancy. Proceed to logging.
 6. Logging is saved as csv format(sample attached).
+7.Under the column 'Remedied',the abbreviation meaning is as follow:
+	YES	Succesfully cleaned to have enough space
+	NR	Not required. Server has enough space.
+	NO	Unsuccesful cleaning. Some or no content deleted. Free space not ample.
+	UTC	Unable to check. 
 	
 ## Technologies
 Project is created with:
